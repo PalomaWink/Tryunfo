@@ -13,6 +13,7 @@ class App extends React.Component {
     cardRare: '',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    deck: [],
   };
 
   handleCkeckedChange = ({ target: { checked } }) => this.setState({
@@ -46,6 +47,47 @@ class App extends React.Component {
     });
   };
 
+  // Criar uma função onSaveButtonClick;
+  // Passar a função via props para o form;
+  // Criar um estado para o baralho (vai ser o baralho de cartas), começa com um array vazio
+  // Na função do onSaveButtonClick setar o estado do baralho;
+
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      deck,
+    } = this.state;
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+      deck: [...deck, newCard],
+    });
+  };
+
   onInputChange = ({ target }) => {
     const { name, value } = target;
     this.setState(() => ({
@@ -61,7 +103,7 @@ class App extends React.Component {
           { ...this.state }
           onInputChange={ (event) => this.onInputChange(event) }
           handleCkeckedChange={ (event) => this.handleCkeckedChange(event) }
-          /* isSaveButtonDisabled={ (event) => this.isSaveButtonDisabled(event) } */
+          onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
         />
         <Card
           { ...this.state }
