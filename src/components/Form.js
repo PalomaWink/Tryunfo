@@ -16,20 +16,22 @@ class Form extends React.Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
+      handleCkeckedChange,
     } = this.props;
+    console.log(hasTrunfo);
     return (
       <form>
         <input
           data-testid="name-input"
           type="text"
-          name="nome"
+          name="cardName"
           value={ cardName }
           onChange={ onInputChange }
         />
         <textarea
           data-testid="description-input"
           type="text"
-          name="descricao"
+          name="cardDescription"
           value={ cardDescription }
           onChange={ onInputChange }
         />
@@ -37,21 +39,21 @@ class Form extends React.Component {
           <input
             data-testid="attr1-input"
             type="number"
-            name="atributo1"
+            name="cardAttr1"
             value={ cardAttr1 }
             onChange={ onInputChange }
           />
           <input
             data-testid="attr2-input"
             type="number"
-            name="atributo2"
+            name="cardAttr2"
             value={ cardAttr2 }
             onChange={ onInputChange }
           />
           <input
             data-testid="attr3-input"
             type="number"
-            name="atributo3"
+            name="cardAttr3"
             value={ cardAttr3 }
             onChange={ onInputChange }
           />
@@ -59,11 +61,16 @@ class Form extends React.Component {
         <input
           data-testid="image-input"
           type="text"
-          name="email"
+          name="cardImage"
           value={ cardImage }
           onChange={ onInputChange }
         />
-        <select data-testid="rare-input" value={ cardRare } onChange={ onInputChange }>
+        <select
+          data-testid="rare-input"
+          value={ cardRare }
+          name="cardRare"
+          onChange={ onInputChange }
+        >
           <option>normal</option>
           <option>raro</option>
           <option>muito raro</option>
@@ -75,7 +82,7 @@ class Form extends React.Component {
             data-testid="trunfo-input"
             id="superTrunfo"
             checked={ cardTrunfo }
-            onChange={ onInputChange }
+            onChange={ handleCkeckedChange }
           />
         </label>
         <button
@@ -103,6 +110,7 @@ Form.propTypes = {
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
+  handleCkeckedChange: PropTypes.func.isRequired,
 };
 
 export default Form;
