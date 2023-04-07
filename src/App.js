@@ -78,6 +78,9 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
     };
+    if (cardTrunfo === true) {
+      this.setState({ hasTrunfo: true });
+    }
     // Aqui estou adicionando a nova carta no estado do baralho e colocando os valores após a validação
     this.setState({
       cardName: '',
@@ -89,7 +92,6 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
-      hasTrunfo: hasTrunfo === false ? !cardTrunfo : false,
       deck: [...deck, newCard],
     });
   };
