@@ -18,7 +18,6 @@ class Form extends React.Component {
       onSaveButtonClick,
       handleCkeckedChange,
     } = this.props;
-    console.log(hasTrunfo);
     return (
       <form>
         <input
@@ -90,6 +89,7 @@ class Form extends React.Component {
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
+          value={ hasTrunfo }
         >
           Salvar
         </button>

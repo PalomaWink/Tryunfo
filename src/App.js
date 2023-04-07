@@ -13,6 +13,7 @@ class App extends React.Component {
     cardRare: '',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    hasTrunfo: false,
     deck: [],
   };
 
@@ -51,8 +52,8 @@ class App extends React.Component {
   // Passar a função via props para o form;
   // Criar um estado para o baralho (vai ser o baralho de cartas), começa com um array vazio
   // Na função do onSaveButtonClick setar o estado do baralho;
-
   onSaveButtonClick = () => {
+    // Aqui estou pegando o estado atual do baralho
     const {
       cardName,
       cardDescription,
@@ -62,8 +63,10 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
       deck,
     } = this.state;
+    // Aqui estou criando uma nova carta
     const newCard = {
       cardName,
       cardDescription,
@@ -73,7 +76,9 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
     };
+    // Aqui estou adicionando a nova carta no estado do baralho e colocando os valores após a validação
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -84,6 +89,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      hasTrunfo: hasTrunfo === false ? !cardTrunfo : false,
       deck: [...deck, newCard],
     });
   };
