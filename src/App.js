@@ -44,10 +44,6 @@ class App extends React.Component {
     });
   };
 
-  // Criar uma função onSaveButtonClick;
-  // Passar a função via props para o form;
-  // Criar um estado para o baralho (vai ser o baralho de cartas), começa com um array vazio
-  // Na função do onSaveButtonClick setar o estado do baralho;
   onSaveButtonClick = () => {
     // Aqui estou pegando o estado atual do baralho
     const {
@@ -92,10 +88,6 @@ class App extends React.Component {
     });
   };
 
-  /*  handleCkeckedChange = ({ target: { checked } }) => this.setState({
-    cardTrunfo: checked,
-  }); */
-
   onInputChange = ({ target }) => {
     const { name, value, checked } = target;
     if (checked) {
@@ -109,15 +101,16 @@ class App extends React.Component {
   };
 
   render() {
+    const { deck } = this.state;
     return (
       <div>
         <h1>Tryunfo!</h1>
         <Form
           { ...this.state }
           onInputChange={ (event) => this.onInputChange(event) }
-          /* handleCkeckedChange={ (event) => this.handleCkeckedChange(event) } */
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
         />
+        {deck.map((card, index) => <Card key={ index } { ...card } />)}
         <Card
           { ...this.state }
         />
