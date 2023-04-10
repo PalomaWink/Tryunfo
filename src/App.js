@@ -100,6 +100,14 @@ class App extends React.Component {
     }), this.validationCard);
   };
 
+  handleDeleteChange = (carta) => {
+    const cardDelete = carta
+      .filter((card) => card.cardName.length === 0 || card.hasTrunfo === true);
+    this.setState({
+      cardDelete,
+    });
+  };
+
   render() {
     const { deck } = this.state;
     return (
@@ -110,7 +118,16 @@ class App extends React.Component {
           onInputChange={ (event) => this.onInputChange(event) }
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
         />
-        {deck.map((card, index) => <Card key={ index } { ...card } />)}
+        {deck.map((card) => (
+          <>
+            <Card key={ card.cardName } { ...card } />
+            <button
+              data-testid="delete-button"
+              onClick={ (carta) => this.handleDeleteChange(carta) }
+            >
+              Excluir
+            </button>
+          </>))}
         <Card
           { ...this.state }
         />
