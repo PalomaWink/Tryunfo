@@ -17,10 +17,6 @@ class App extends React.Component {
     deck: [],
   };
 
-  handleCkeckedChange = ({ target: { checked } }) => this.setState({
-    cardTrunfo: checked,
-  });
-
   validationCard = () => {
     const { cardName,
       cardDescription,
@@ -96,8 +92,17 @@ class App extends React.Component {
     });
   };
 
+  /*  handleCkeckedChange = ({ target: { checked } }) => this.setState({
+    cardTrunfo: checked,
+  }); */
+
   onInputChange = ({ target }) => {
-    const { name, value } = target;
+    const { name, value, checked } = target;
+    if (checked) {
+      this.setState({
+        cardTrunfo: checked,
+      });
+    }
     this.setState(() => ({
       [name]: value,
     }), this.validationCard);
@@ -110,7 +115,7 @@ class App extends React.Component {
         <Form
           { ...this.state }
           onInputChange={ (event) => this.onInputChange(event) }
-          handleCkeckedChange={ (event) => this.handleCkeckedChange(event) }
+          /* handleCkeckedChange={ (event) => this.handleCkeckedChange(event) } */
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
         />
         <Card
