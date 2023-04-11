@@ -101,11 +101,17 @@ class App extends React.Component {
   };
 
   handleDeleteChange = (carta) => {
-    const cardDelete = carta
-      .filter((card) => card.cardName.length === 0 || card.hasTrunfo === true);
-    this.setState({
-      cardDelete,
-    });
+    const { value } = carta.target;
+    const { deck } = this.state;
+    const cardDelete = deck
+      .filter((card) => card.cardName !== value);
+    const hasTrunfo = cardDelete.some((card) => card.cardTrunfo === true);
+    if (!hasTrunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+    this.setState(() => ({
+      deck: cardDelete,
+    }));
   };
 
   render() {
@@ -118,16 +124,17 @@ class App extends React.Component {
           onInputChange={ (event) => this.onInputChange(event) }
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
         />
-        {deck.map((card) => (
-          <>
+        {deck.map((card, index) => (
+          <div key={ index }>
             <Card key={ card.cardName } { ...card } />
             <button
+              value={ card.cardName }
               data-testid="delete-button"
-              onClick={ (carta) => this.handleDeleteChange(carta) }
+              onClick={ this.handleDeleteChange }
             >
               Excluir
             </button>
-          </>))}
+          </div>))}
         <Card
           { ...this.state }
         />
