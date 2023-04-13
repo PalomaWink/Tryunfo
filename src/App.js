@@ -17,6 +17,7 @@ class App extends React.Component {
     deck: [],
     nameFilter: '',
     filterChange: '',
+    filterRare: '',
   };
 
   validationCard = () => {
@@ -122,7 +123,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { deck, nameFilter } = this.state;
+    const { deck, nameFilter, filterRare } = this.state;
     return (
       <div>
         <h1>Tryunfo!</h1>
@@ -132,7 +133,8 @@ class App extends React.Component {
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
           filterChange={ (event) => this.filterChange(event) }
         />
-        {deck.filter((card) => card.cardName.includes(nameFilter))
+        {deck.filter((card) => card.cardName.includes(nameFilter)
+          && (card.cardRare.includes(filterRare) || filterRare === 'todas'))
           .map((card, index) => (
             <div key={ index }>
               <Card key={ card.cardName } { ...card } />
