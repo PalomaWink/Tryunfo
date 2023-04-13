@@ -16,6 +16,9 @@ class Form extends React.Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
+      nameFilter,
+      filterChange,
+      filterRare,
     } = this.props;
     return (
       <form>
@@ -94,6 +97,28 @@ class Form extends React.Component {
         >
           Salvar
         </button>
+        <div>
+          <label htmlFor="name-filter">Filtrar por nome:</label>
+          <input
+            type="text"
+            id="name-filter"
+            name="nameFilter"
+            value={ nameFilter }
+            onChange={ filterChange }
+            data-testid="name-filter"
+          />
+          <select
+            data-testid="rare-filter"
+            value={ filterRare }
+            name="filterRare"
+            onChange={ filterChange }
+          >
+            <option>todas</option>
+            <option>normal</option>
+            <option>raro</option>
+            <option>muito raro</option>
+          </select>
+        </div>
       </form>
     );
   }
@@ -112,6 +137,9 @@ Form.propTypes = {
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
+  nameFilter: PropTypes.string.isRequired,
+  filterChange: PropTypes.func.isRequired,
+  filterRare: PropTypes.string.isRequired,
 };
 
 export default Form;

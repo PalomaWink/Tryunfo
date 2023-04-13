@@ -15,6 +15,8 @@ class App extends React.Component {
     isSaveButtonDisabled: true,
     hasTrunfo: false,
     deck: [],
+    nameFilter: '',
+    filterChange: '',
   };
 
   validationCard = () => {
@@ -114,8 +116,13 @@ class App extends React.Component {
     }));
   };
 
+  filterChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  };
+
   render() {
-    const { deck } = this.state;
+    const { deck, nameFilter } = this.state;
     return (
       <div>
         <h1>Tryunfo!</h1>
@@ -123,18 +130,20 @@ class App extends React.Component {
           { ...this.state }
           onInputChange={ (event) => this.onInputChange(event) }
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
+          filterChange={ (event) => this.filterChange(event) }
         />
-        {deck.map((card, index) => (
-          <div key={ index }>
-            <Card key={ card.cardName } { ...card } />
-            <button
-              value={ card.cardName }
-              data-testid="delete-button"
-              onClick={ this.handleDeleteChange }
-            >
-              Excluir
-            </button>
-          </div>))}
+        {deck.filter((card) => card.cardName.includes(nameFilter))
+          .map((card, index) => (
+            <div key={ index }>
+              <Card key={ card.cardName } { ...card } />
+              <button
+                value={ card.cardName }
+                data-testid="delete-button"
+                onClick={ this.handleDeleteChange }
+              >
+                Excluir
+              </button>
+            </div>))}
         <Card
           { ...this.state }
         />
