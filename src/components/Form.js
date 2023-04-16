@@ -19,6 +19,7 @@ class Form extends React.Component {
       nameFilter,
       filterChange,
       filterRare,
+      filterSuperTrunfo,
     } = this.props;
     return (
       <form>
@@ -81,6 +82,7 @@ class Form extends React.Component {
             <label htmlFor="superTrunfo">
               Super Trunfo
               <input
+                name="cardTrunfo"
                 type="checkbox"
                 data-testid="trunfo-input"
                 id="superTrunfo"
@@ -106,18 +108,30 @@ class Form extends React.Component {
             value={ nameFilter }
             onChange={ filterChange }
             data-testid="name-filter"
+            disabled={ filterSuperTrunfo }
           />
           <select
             data-testid="rare-filter"
             value={ filterRare }
             name="filterRare"
             onChange={ filterChange }
+            disabled={ filterSuperTrunfo }
           >
             <option>todas</option>
             <option>normal</option>
             <option>raro</option>
             <option>muito raro</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="superTrunfoFilter">Super Trunfo</label>
+          <input
+            data-testid="trunfo-filter"
+            type="checkbox"
+            name="filterSuperTrunfo"
+            id="superTrunfoFilter"
+            onChange={ onInputChange }
+          />
         </div>
       </form>
     );
@@ -140,6 +154,7 @@ Form.propTypes = {
   nameFilter: PropTypes.string.isRequired,
   filterChange: PropTypes.func.isRequired,
   filterRare: PropTypes.string.isRequired,
+  filterSuperTrunfo: PropTypes.bool.isRequired,
 };
 
 export default Form;

@@ -10,14 +10,15 @@ class App extends React.Component {
     cardAttr2: '',
     cardAttr3: '',
     cardImage: '',
-    cardRare: '',
+    cardRare: 'normal',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
     hasTrunfo: false,
     deck: [],
     nameFilter: '',
     filterChange: '',
-    filterRare: '',
+    filterRare: 'todas',
+    filterSuperTrunfo: false,
   };
 
   validationCard = () => {
@@ -92,15 +93,16 @@ class App extends React.Component {
   };
 
   onInputChange = ({ target }) => {
-    const { name, value, checked } = target;
-    if (checked) {
+    const { name, value, checked, type } = target;
+    if (type === 'checkbox') {
       this.setState({
-        cardTrunfo: checked,
+        [name]: checked,
       });
+    } else {
+      this.setState(() => ({
+        [name]: value,
+      }), this.validationCard);
     }
-    this.setState(() => ({
-      [name]: value,
-    }), this.validationCard);
   };
 
   handleDeleteChange = (carta) => {
@@ -123,7 +125,10 @@ class App extends React.Component {
   };
 
   render() {
-    const { deck, nameFilter, filterRare } = this.state;
+    const { deck, nameFilter, filterRare, filterSuperTrunfo } = this.state;
+    const superTrunfoFilter = filterSuperTrunfo ? deck.filter((card) => card.cardTrunfo)
+      : deck.filter((card) => card.cardName.includes(nameFilter)
+    && (filterRare !== 'todas' ? card.cardRare === filterRare : true));
     return (
       <div>
         <h1>Tryunfo!</h1>
@@ -133,19 +138,17 @@ class App extends React.Component {
           onSaveButtonClick={ (event) => this.onSaveButtonClick(event) }
           filterChange={ (event) => this.filterChange(event) }
         />
-        {deck.filter((card) => card.cardName.includes(nameFilter)
-          && (card.cardRare.includes(filterRare) || filterRare === 'todas'))
-          .map((card, index) => (
-            <div key={ index }>
-              <Card key={ card.cardName } { ...card } />
-              <button
-                value={ card.cardName }
-                data-testid="delete-button"
-                onClick={ this.handleDeleteChange }
-              >
-                Excluir
-              </button>
-            </div>))}
+        {superTrunfoFilter.map((card, index) => (
+          <div key={ index }>
+            <Card key={ card.cardName } { ...card } />
+            <button
+              value={ card.cardName }
+              data-testid="delete-button"
+              onClick={ this.handleDeleteChange }
+            >
+              Excluir
+            </button>
+          </div>))}
         <Card
           { ...this.state }
         />
