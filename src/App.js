@@ -94,6 +94,7 @@ class App extends React.Component {
 
   onInputChange = ({ target }) => {
     const { name, value, checked, type } = target;
+
     if (type === 'checkbox') {
       this.setState({
         [name]: checked,
@@ -129,6 +130,7 @@ class App extends React.Component {
     const superTrunfoFilter = filterSuperTrunfo ? deck.filter((card) => card.cardTrunfo)
       : deck.filter((card) => card.cardName.includes(nameFilter)
     && (filterRare !== 'todas' ? card.cardRare === filterRare : true));
+
     return (
       <div>
         <h1>Tryunfo!</h1>
